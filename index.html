@@ -3,266 +3,347 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Abhijit Fabrication Work</title>
+  <title>Abhijit Fabrication Work - Job Estimation & Billing</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-    input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      background-color: #0b0f17;
+      background-image: 
+        radial-gradient(ellipse 80% 80% at 50% -20%, rgba(249, 115, 22, 0.12), transparent),
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 100% 100%, 24px 24px, 24px 24px;
+    }
+    .font-mono-tech { font-family: 'JetBrains Mono', monospace; }
+    .font-industrial { font-family: 'Chakra Petch', sans-serif; }
+    
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Industrial Bolt Detailing */
+    .bolt-corner {
+      position: relative;
+    }
+    .bolt-corner::before, .bolt-corner::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #475569;
+      border-radius: 50%;
+      box-shadow: inset 0 1px 1px #94a3b8, 0 1px 2px #000;
+    }
+    .bolt-corner::before { top: 7px; left: 7px; }
+    .bolt-corner::after { top: 7px; right: 7px; }
+
+    /* Chamfered badge corners */
+    .cut-corner-sm {
+      clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen antialiased selection:bg-amber-500 selection:text-white pb-28">
+<body class="text-slate-200 min-h-screen antialiased selection:bg-orange-500 selection:text-black pb-36">
 
-  <!-- Top App Navigation -->
-  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-amber-200/80 shadow-xs">
+  <!-- Header: Heavy Workshop Control Rig -->
+  <header class="sticky top-0 z-30 bg-[#0d131f]/95 backdrop-blur-md border-b-2 border-orange-500/80 shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
     <div class="max-w-xl mx-auto px-4 py-3 flex justify-between items-center">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-200 p-[1px] shadow-xs">
-          <div class="w-full h-full bg-amber-50 rounded-[15px] flex items-center justify-center border border-amber-300">
-            <span class="text-xs font-black tracking-wider text-amber-900">AFW</span>
+        <!-- Mechanical Iron Badge -->
+        <div class="relative w-11 h-11 bg-gradient-to-br from-slate-700 via-slate-900 to-black p-0.5 rounded-lg border border-slate-600 shadow-inner flex items-center justify-center">
+          <div class="w-full h-full bg-[#111827] rounded-[6px] flex flex-col items-center justify-center border border-orange-500/40">
+            <span class="text-xs font-black tracking-widest text-orange-400 font-industrial leading-none">AFW</span>
+            <span class="text-[7px] font-mono-tech text-slate-400 font-bold mt-0.5">WELD</span>
           </div>
         </div>
         <div>
-          <h1 id="topStoreName" class="font-extrabold text-sm sm:text-base tracking-tight text-slate-900 leading-tight">Abhijit Fabrication Work</h1>
-          <p class="text-[10px] text-amber-700 font-semibold">Hyderabad region Contract Work • +91 8019132514</p>
+          <div class="flex items-center gap-1.5">
+            <h1 id="topStoreName" class="font-industrial font-bold text-base sm:text-lg tracking-wider text-slate-100 uppercase leading-none">Abhijit Fabrication Work</h1>
+          </div>
+          <p class="text-[11px] text-orange-400/90 font-mono-tech font-semibold tracking-tight mt-0.5 flex items-center gap-1">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            HYD REGION • PROP: AJIT BEHERA
+          </p>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button type="button" onclick="showHistory()" class="flex items-center gap-1 bg-slate-100 hover:bg-slate-200 active:scale-95 px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 text-slate-700 shadow-xs transition">
-          📋 Records
+        <button type="button" onclick="showHistory()" class="cut-corner-sm bg-slate-800 hover:bg-slate-700 active:scale-95 px-3 py-1.5 text-xs font-mono-tech font-bold border border-slate-600 text-slate-200 shadow-sm transition flex items-center gap-1.5">
+          <span>📋</span> LOGS
         </button>
-        <button type="button" onclick="openSettings()" class="bg-slate-100 hover:bg-slate-200 active:scale-95 p-2 rounded-xl text-xs font-bold border border-slate-200 text-slate-700 shadow-xs transition">
+        <button type="button" onclick="openSettings()" class="bg-slate-800 hover:bg-slate-700 active:scale-95 p-1.5 rounded-md text-xs border border-slate-600 text-slate-300 transition">
           ⚙️
         </button>
       </div>
     </div>
   </header>
 
-  <main class="max-w-xl mx-auto px-4 py-4 space-y-4">
+  <main class="max-w-xl mx-auto px-3 py-4 space-y-3.5">
 
-    <!-- Card 1: Invoice & Date Meta -->
-    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+    <!-- Job Sheet Meta Panel -->
+    <div class="bolt-corner bg-[#111827] p-4 rounded-xl border border-slate-700/80 shadow-lg space-y-3">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+        <span class="text-[10px] font-mono-tech font-bold uppercase tracking-widest text-orange-400 flex items-center gap-1.5">
+          <span class="w-2 h-2 bg-orange-500 inline-block"></span> JOB METRICS & WORK ORDER
+        </span>
+        <span class="text-[10px] font-mono-tech text-slate-500">ISO-ESTIMATE</span>
+      </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
-          <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Invoice No. ✏️</label>
-          <input id="invNum" type="text" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-amber-800 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 outline-none transition" />
+          <label class="block text-[11px] font-mono-tech text-slate-400 uppercase tracking-wider mb-1">Work Order / Inv #</label>
+          <input id="invNum" type="text" class="w-full bg-[#1c2436] border border-slate-700 rounded-md px-3 py-2 font-mono-tech text-sm font-bold text-orange-400 focus:border-orange-500 focus:bg-[#161e2e] outline-none transition" />
         </div>
         <div>
-          <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Date</label>
-          <input id="invDate" type="text" class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-sm font-semibold text-slate-500 outline-none select-none" readonly />
+          <label class="block text-[11px] font-mono-tech text-slate-400 uppercase tracking-wider mb-1">Job Date</label>
+          <input id="invDate" type="text" class="w-full bg-[#161e2e] border border-slate-700/50 rounded-md px-3 py-2 font-mono-tech text-sm font-semibold text-slate-400 outline-none select-none cursor-not-allowed" readonly />
         </div>
       </div>
     </div>
 
-    <!-- Card 2: Customer & Payment Mode -->
-    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-3.5">
+    <!-- Client / Contractor Info -->
+    <div class="bolt-corner bg-[#111827] p-4 rounded-xl border border-slate-700/80 shadow-lg space-y-3">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+        <span class="text-[10px] font-mono-tech font-bold uppercase tracking-widest text-orange-400 flex items-center gap-1.5">
+          <span class="w-2 h-2 bg-orange-500 inline-block"></span> CLIENT & DISPATCH DETAILS
+        </span>
+        <span class="text-[10px] font-mono-tech text-slate-400">PROP: AJIT BEHERA</span>
+      </div>
+
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <div class="flex justify-between items-center mb-1.5">
-            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Customer / Client</label>
-            <span class="text-[10px] text-amber-600 font-medium">Default in ⚙️</span>
-          </div>
-          <input id="custName" type="text" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm font-semibold text-slate-800 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 outline-none transition" />
+          <label class="block text-[11px] font-mono-tech text-slate-400 uppercase tracking-wider mb-1">Client / Site Name</label>
+          <input id="custName" type="text" placeholder="Contractor / Customer" class="w-full bg-[#1c2436] border border-slate-700 rounded-md px-3 py-2 text-sm font-bold text-slate-100 placeholder:text-slate-600 focus:border-orange-500 focus:bg-[#161e2e] outline-none transition" />
         </div>
         <div>
-          <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">WhatsApp Mobile</label>
-          <div class="flex rounded-xl overflow-hidden border border-slate-200 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-500/20 transition">
-            <span class="inline-flex items-center px-3 bg-slate-100 text-slate-600 text-xs font-bold border-r border-slate-200">+91</span>
-            <input id="custPhone" type="tel" maxlength="10" placeholder="10-digit number" class="w-full bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-800 outline-none focus:bg-white" />
+          <label class="block text-[11px] font-mono-tech text-slate-400 uppercase tracking-wider mb-1">Client Phone (WhatsApp)</label>
+          <div class="flex rounded-md overflow-hidden border border-slate-700 focus-within:border-orange-500 transition">
+            <span class="inline-flex items-center px-2.5 bg-slate-800 text-orange-400 font-mono-tech text-xs font-bold border-r border-slate-700">+91</span>
+            <input id="custPhone" type="tel" maxlength="10" placeholder="10-digit number" class="w-full bg-[#1c2436] px-3 py-2 font-mono-tech text-sm font-bold text-slate-100 placeholder:text-slate-600 outline-none focus:bg-[#161e2e]" />
           </div>
         </div>
       </div>
 
-      <!-- Segmented Payment Selector -->
-      <div>
-        <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Payment Mode</label>
-        <div class="grid grid-cols-2 gap-2 bg-slate-100 p-1 rounded-xl border border-slate-200">
-          <button type="button" id="btnCash" onclick="setPaymentMode('Cash')" class="py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 bg-amber-500 text-white shadow-xs transition">
+      <!-- Payment Switch -->
+      <div class="pt-1">
+        <label class="block text-[11px] font-mono-tech text-slate-400 uppercase tracking-wider mb-1.5">Settlement Mode</label>
+        <div class="grid grid-cols-2 gap-2 bg-[#0d131f] p-1 rounded-lg border border-slate-800">
+          <button type="button" id="btnCash" onclick="setPaymentMode('Cash')" class="py-2 rounded font-mono-tech text-xs font-bold uppercase transition flex items-center justify-center gap-1.5 bg-orange-500 text-black shadow-md">
             <span>💵</span> Cash
           </button>
-          <button type="button" id="btnOnline" onclick="setPaymentMode('Online / UPI')" class="py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 text-slate-600 hover:text-slate-900 transition">
-            <span>📱</span> Online / UPI
+          <button type="button" id="btnOnline" onclick="setPaymentMode('Online / UPI')" class="py-2 rounded font-mono-tech text-xs font-bold uppercase text-slate-400 hover:text-slate-200 transition flex items-center justify-center gap-1.5">
+            <span>⚡</span> UPI / Online
           </button>
         </div>
         <input type="hidden" id="paymentMode" value="Cash" />
       </div>
     </div>
 
-    <!-- Quick Item Presets -->
-    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-2.5">
-      <div class="flex justify-between items-center">
-        <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">⚡ Quick Services & Presets</span>
-        <button type="button" onclick="openPresetModal()" class="text-xs text-amber-700 hover:text-amber-800 font-bold transition">
-          ⚙️ Edit Presets
+    <!-- Quick Fabrication Task Presets -->
+    <div class="bg-[#111827] p-3.5 rounded-xl border border-slate-700/80 shadow-lg space-y-2">
+      <div class="flex justify-between items-center pb-1">
+        <span class="text-[10px] font-mono-tech font-bold uppercase tracking-widest text-slate-400 flex items-center gap-1">
+          <span>⚡</span> COMMON WORK ESTIMATES
+        </span>
+        <button type="button" onclick="openPresetModal()" class="text-[11px] font-mono-tech text-orange-400 hover:text-orange-300 font-bold transition">
+          [ CONFIG PRESETS ]
         </button>
       </div>
       <div id="quickPresetsBar" class="flex gap-2 overflow-x-auto no-scrollbar pb-1 text-xs"></div>
     </div>
 
-    <!-- Card 3: Items Cart -->
-    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-3">
-      <div class="flex justify-between items-center pb-2 border-b border-slate-100">
-        <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Work Details & Materials</span>
-        <button type="button" onclick="addRow()" class="flex items-center gap-1 bg-amber-50 hover:bg-amber-100 active:scale-95 text-amber-800 border border-amber-200 font-bold px-3 py-1.5 rounded-xl text-xs transition">
-          + Add Item
+    <!-- Job Scope / Line Items -->
+    <div class="bolt-corner bg-[#111827] p-4 rounded-xl border border-slate-700/80 shadow-lg space-y-3">
+      <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+        <span class="text-[10px] font-mono-tech font-bold uppercase tracking-widest text-orange-400 flex items-center gap-1.5">
+          <span class="w-2 h-2 bg-orange-500 inline-block"></span> BILLABLE WORK / MATERIALS
+        </span>
+        <button type="button" onclick="addRow()" class="bg-orange-500/10 hover:bg-orange-500/20 active:scale-95 text-orange-400 border border-orange-500/40 font-mono-tech font-bold px-3 py-1 rounded text-xs transition flex items-center gap-1">
+          + ADD SPEC
         </button>
       </div>
 
-      <div id="itemsBox" class="space-y-2.5"></div>
+      <!-- Column headers for items -->
+      <div class="grid grid-cols-12 gap-1.5 px-2 text-[10px] font-mono-tech text-slate-400 uppercase tracking-wider">
+        <div class="col-span-5">Fabrication Description</div>
+        <div class="col-span-2 text-center">Qty</div>
+        <div class="col-span-2 text-center">Unit</div>
+        <div class="col-span-2 text-right">Rate(₹)</div>
+        <div class="col-span-1"></div>
+      </div>
 
-      <!-- Live Total Display -->
-      <div class="bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 p-4 rounded-2xl text-white flex justify-between items-center shadow-sm mt-4">
-        <div>
-          <span class="text-[10px] font-bold uppercase tracking-widest text-amber-100 block">Grand Total</span>
-          <span class="text-xs text-amber-50 font-medium">All services & works included</span>
-        </div>
-        <div class="text-right">
-          <span class="text-2xl sm:text-3xl font-black text-white tracking-tight">₹<span id="grandTotal">0.00</span></span>
+      <div id="itemsBox" class="space-y-2"></div>
+
+      <!-- Steel Heavy Gauge Total Readout -->
+      <div class="relative overflow-hidden bg-gradient-to-r from-slate-900 via-[#182234] to-slate-900 p-4 rounded-xl border-2 border-orange-500/60 shadow-xl mt-4">
+        <div class="absolute right-0 top-0 bottom-0 w-32 bg-orange-500/5 -skew-x-12 pointer-events-none"></div>
+        <div class="flex justify-between items-end relative z-10">
+          <div>
+            <span class="text-[10px] font-mono-tech font-bold uppercase tracking-widest text-orange-400 block">TOTAL WORK VALUATION</span>
+            <span class="text-xs font-mono-tech text-slate-400">All materials & labor included</span>
+          </div>
+          <div class="text-right">
+            <span class="text-2xl sm:text-3xl font-black font-mono-tech text-orange-400 tracking-tight">₹<span id="grandTotal">0.00</span></span>
+          </div>
         </div>
       </div>
     </div>
 
   </main>
 
-  <!-- Sticky Mobile Action Footer -->
-  <div class="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 z-30 shadow-lg">
+  <!-- Sticky Heavy Duty Workshop Action Bar -->
+  <div class="fixed bottom-0 inset-x-0 bg-[#0d131f]/95 backdrop-blur-md border-t-2 border-slate-700/80 p-3 z-30 shadow-[0_-8px_30px_rgba(0,0,0,0.8)]">
     <div class="max-w-xl mx-auto grid grid-cols-5 gap-2">
-      <button type="button" onclick="saveOnly()" class="bg-amber-500 hover:bg-amber-600 active:scale-95 text-white font-black py-3 rounded-xl text-xs flex flex-col items-center justify-center transition shadow-xs">
-        <span>💾</span> Save
+      <button type="button" onclick="saveOnly()" class="bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-600 font-mono-tech font-bold py-2.5 rounded-lg text-xs flex flex-col items-center justify-center transition">
+        <span>💾</span> SAVE
       </button>
-      <button type="button" onclick="showPreview()" class="bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 border border-slate-200 font-bold py-3 rounded-xl text-xs flex flex-col items-center justify-center transition">
-        <span>👁️</span> View
+      <button type="button" onclick="showPreview()" class="bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-600 font-mono-tech font-bold py-2.5 rounded-lg text-xs flex flex-col items-center justify-center transition">
+        <span>📐</span> PREVIEW
       </button>
-      <button type="button" onclick="runBill('print')" class="bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 border border-slate-200 font-bold py-3 rounded-xl text-xs flex flex-col items-center justify-center transition">
-        <span>🖨️</span> Print
+      <button type="button" onclick="runBill('print')" class="bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-600 font-mono-tech font-bold py-2.5 rounded-lg text-xs flex flex-col items-center justify-center transition">
+        <span>🖨️</span> PRINT
       </button>
-      <button type="button" onclick="runBill('pdf')" class="bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 border border-slate-200 font-bold py-3 rounded-xl text-xs flex flex-col items-center justify-center transition">
-        <span>📄</span> PDF
+      <button type="button" onclick="runBill('pdf')" class="bg-orange-500 hover:bg-orange-600 active:scale-95 text-black font-mono-tech font-extrabold py-2.5 rounded-lg text-xs flex flex-col items-center justify-center transition shadow-md">
+        <span>📄</span> PDF EST.
       </button>
-      <button type="button" onclick="runBill('wa')" class="bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-black py-3 rounded-xl text-xs flex flex-col items-center justify-center transition shadow-xs">
-        <span>💬</span> WhatsApp
+      <button type="button" onclick="runBill('wa')" class="bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-mono-tech font-bold py-2.5 rounded-lg text-xs flex flex-col items-center justify-center transition shadow-md">
+        <span>💬</span> WA SEND
       </button>
     </div>
   </div>
 
-  <!-- Preview Modal -->
-  <div id="previewModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-sm rounded-3xl border border-slate-200 shadow-2xl overflow-hidden p-5 space-y-4 text-xs text-slate-700">
-      <div class="text-center border-b border-slate-100 pb-3">
-        <div class="w-12 h-12 mx-auto mb-2 rounded-2xl bg-amber-50 border border-amber-300 text-amber-900 font-black flex items-center justify-center text-sm shadow-xs">
+  <!-- Preview Blueprint Modal -->
+  <div id="previewModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-3">
+    <div class="bg-[#111827] w-full max-w-sm rounded-2xl border-2 border-orange-500/60 shadow-2xl overflow-hidden p-5 space-y-4 text-xs font-mono-tech text-slate-300">
+      <div class="text-center border-b border-slate-800 pb-3">
+        <div class="w-10 h-10 mx-auto mb-2 rounded bg-slate-800 border border-orange-500/50 text-orange-400 font-black flex items-center justify-center text-sm font-industrial">
           AFW
         </div>
-        <h3 id="pvBiz" class="font-extrabold text-sm text-slate-900"></h3>
-        <p class="text-[10px] text-amber-800 font-bold mt-0.5">Prop: Ajit Behera</p>
-        <p class="text-[10px] text-slate-500">Hyderabad region Contract Work</p>
-        <p class="text-[10px] text-slate-500">📞 +91 8019132514</p>
+        <h3 id="pvBiz" class="font-industrial font-extrabold text-base text-slate-100 uppercase"></h3>
+        <p class="text-[10px] text-orange-400 font-semibold mt-0.5">Proprietor: Ajit Behera</p>
+        <p class="text-[10px] text-slate-400">Hyderabad region Contract Work</p>
+        <p class="text-[10px] text-slate-400">Ph: +91 8019132514</p>
       </div>
-      <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
-        <div class="flex justify-between"><span>Invoice:</span> <strong id="pvInv" class="text-amber-800"></strong></div>
-        <div class="flex justify-between"><span>Date:</span> <span id="pvDate"></span></div>
-        <div class="flex justify-between"><span>Customer:</span> <span id="pvCust"></span></div>
-        <div class="flex justify-between"><span>Payment:</span> <span id="pvPay"></span></div>
+
+      <div class="bg-[#0b0f17] p-3 rounded-lg border border-slate-800 space-y-1 text-[11px]">
+        <div class="flex justify-between"><span class="text-slate-500">JOB REF:</span> <strong id="pvInv" class="text-orange-400"></strong></div>
+        <div class="flex justify-between"><span class="text-slate-500">DATE:</span> <span id="pvDate"></span></div>
+        <div class="flex justify-between"><span class="text-slate-500">CLIENT:</span> <span id="pvCust" class="text-slate-200"></span></div>
+        <div class="flex justify-between"><span class="text-slate-500">SETTLEMENT:</span> <span id="pvPay"></span></div>
       </div>
-      <table class="w-full border-t border-b border-slate-200">
-        <thead>
-          <tr class="text-left text-[10px] text-slate-400 uppercase tracking-wider">
-            <th class="py-1.5">Work / Item</th>
-            <th class="py-1.5 text-center">Qty</th>
-            <th class="py-1.5 text-right">Price</th>
-            <th class="py-1.5 text-right">Total</th>
-          </tr>
-        </thead>
-        <tbody id="pvList" class="divide-y divide-slate-100"></tbody>
-      </table>
-      <div class="flex justify-between font-black text-sm pt-1">
-        <span>Grand Total:</span>
-        <span class="text-amber-600">₹<span id="pvTot"></span></span>
+
+      <div class="max-h-48 overflow-y-auto">
+        <table class="w-full text-[11px]">
+          <thead>
+            <tr class="text-left text-slate-500 uppercase border-b border-slate-800 text-[9px]">
+              <th class="py-1">Work Description</th>
+              <th class="py-1 text-center">Unit</th>
+              <th class="py-1 text-right">Rate</th>
+              <th class="py-1 text-right">Total</th>
+            </tr>
+          </thead>
+          <tbody id="pvList" class="divide-y divide-slate-800/60"></tbody>
+        </table>
       </div>
-      <button type="button" onclick="closePreview()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-2.5 rounded-xl transition">
-        Close Preview
+
+      <div class="flex justify-between font-bold text-sm pt-2 border-t border-slate-800">
+        <span class="text-slate-400">NET PAYABLE:</span>
+        <span class="text-orange-400">₹<span id="pvTot"></span></span>
+      </div>
+
+      <button type="button" onclick="closePreview()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2 rounded-lg transition border border-slate-700">
+        DISMISS PREVIEW
       </button>
     </div>
   </div>
 
-  <!-- Settings Modal -->
-  <div id="settingsModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-md rounded-3xl border border-slate-200 shadow-2xl overflow-hidden flex flex-col text-xs text-slate-700">
-      <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-        <h3 class="font-extrabold text-sm text-slate-900">⚙️ Business Settings</h3>
-        <button type="button" onclick="closeSettings()" class="text-slate-400 text-lg font-bold p-1">×</button>
+  <!-- Settings Configuration Modal -->
+  <div id="settingsModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-3">
+    <div class="bg-[#111827] w-full max-w-md rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col text-xs font-mono-tech text-slate-300">
+      <div class="p-4 border-b border-slate-800 flex justify-between items-center bg-[#0d131f]">
+        <h3 class="font-industrial font-bold text-sm text-slate-100 uppercase tracking-wider">⚙️ FABRICATION WORKSHOP CONFIG</h3>
+        <button type="button" onclick="closeSettings()" class="text-slate-400 hover:text-slate-100 text-lg font-bold">×</button>
       </div>
       <div class="p-4 space-y-3.5">
         <div>
-          <label class="block font-bold text-slate-500 mb-1.5">BUSINESS NAME</label>
-          <input id="setBizName" type="text" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 font-semibold outline-none focus:border-amber-500" />
+          <label class="block font-bold text-slate-400 mb-1">ENTERPRISE NAME</label>
+          <input id="setBizName" type="text" class="w-full bg-[#1c2436] border border-slate-700 rounded-md px-3 py-2 text-slate-100 font-semibold outline-none focus:border-orange-500" />
         </div>
         <div>
-          <label class="block font-bold text-slate-500 mb-1.5">DEFAULT CLIENT / CUSTOMER</label>
-          <input id="setCustName" type="text" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 outline-none focus:border-amber-500" />
+          <label class="block font-bold text-slate-400 mb-1">DEFAULT CLIENT HEADER</label>
+          <input id="setCustName" type="text" class="w-full bg-[#1c2436] border border-slate-700 rounded-md px-3 py-2 text-slate-100 outline-none focus:border-orange-500" />
         </div>
         <div>
-          <label class="block font-bold text-slate-500 mb-1.5">STORE UPI ID (For Scan & Pay QR)</label>
-          <input id="setUpiId" type="text" placeholder="e.g. 8019132514@upi" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 font-semibold outline-none focus:border-amber-500" />
+          <label class="block font-bold text-slate-400 mb-1">PAYMENT UPI VPA (For QR Invoices)</label>
+          <input id="setUpiId" type="text" placeholder="8019132514@upi" class="w-full bg-[#1c2436] border border-slate-700 rounded-md px-3 py-2 text-slate-100 font-semibold outline-none focus:border-orange-500" />
         </div>
       </div>
-      <div class="p-3 border-t border-slate-100 bg-slate-50 flex justify-end gap-2">
-        <button type="button" onclick="closeSettings()" class="bg-slate-200 hover:bg-slate-300 px-4 py-2 rounded-xl font-bold">Cancel</button>
-        <button type="button" onclick="saveSettings()" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-xl font-bold">Save Settings</button>
+      <div class="p-3 border-t border-slate-800 bg-[#0d131f] flex justify-end gap-2">
+        <button type="button" onclick="closeSettings()" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded font-bold border border-slate-700">Cancel</button>
+        <button type="button" onclick="saveSettings()" class="bg-orange-500 hover:bg-orange-600 text-black px-4 py-2 rounded font-bold">Update Workshop</button>
       </div>
     </div>
   </div>
 
   <!-- Presets Management Modal -->
-  <div id="presetsModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-md rounded-3xl border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[85vh] text-xs text-slate-700">
-      <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-        <h3 class="font-extrabold text-sm text-slate-900">Manage Quick Items</h3>
+  <div id="presetsModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-3">
+    <div class="bg-[#111827] w-full max-w-md rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col max-h-[85vh] text-xs font-mono-tech text-slate-300">
+      <div class="p-4 border-b border-slate-800 flex justify-between items-center bg-[#0d131f]">
+        <h3 class="font-industrial font-bold text-sm text-slate-100 uppercase tracking-wider">FABRICATION RATE MATRIX</h3>
         <button type="button" onclick="closePresetModal()" class="text-slate-400 text-lg font-bold p-1">×</button>
       </div>
       <div class="p-4 space-y-3 overflow-y-auto flex-grow">
-        <div class="bg-amber-50/70 p-3 rounded-2xl border border-amber-200 space-y-2">
-          <p class="font-bold text-amber-900">Add New Quick Preset</p>
-          <div class="grid grid-cols-7 gap-2">
-            <input id="newPresetName" type="text" placeholder="Item Name" class="col-span-4 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs outline-none" />
-            <input id="newPresetPrice" type="number" placeholder="₹ Price" class="col-span-3 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs outline-none" />
+        <div class="bg-[#0b0f17] p-3 rounded-lg border border-slate-800 space-y-2">
+          <p class="font-bold text-orange-400 uppercase text-[10px]">Add Work Preset to Quick-Bar</p>
+          <div class="grid grid-cols-12 gap-2">
+            <input id="newPresetName" type="text" placeholder="e.g. MS Safety Grill" class="col-span-6 bg-[#1c2436] border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-100 outline-none" />
+            <select id="newPresetUnit" class="col-span-3 bg-[#1c2436] border border-slate-700 rounded px-1.5 py-1.5 text-xs text-slate-100 outline-none">
+              <option value="sq ft">sq ft</option>
+              <option value="kg">kg</option>
+              <option value="rft">rft</option>
+              <option value="pcs">pcs</option>
+              <option value="job">job</option>
+            </select>
+            <input id="newPresetPrice" type="number" placeholder="₹ Rate" class="col-span-3 bg-[#1c2436] border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-100 outline-none" />
           </div>
-          <button type="button" onclick="addNewPreset()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-black py-2 rounded-xl text-xs transition">
-            + Save Preset
+          <button type="button" onclick="addNewPreset()" class="w-full bg-orange-500 hover:bg-orange-600 text-black font-black py-2 rounded text-xs transition uppercase">
+            + Append Matrix Item
           </button>
         </div>
         <div id="presetItemsList" class="space-y-2 pt-1"></div>
       </div>
-      <div class="p-3 border-t border-slate-100 bg-slate-50 flex justify-end">
-        <button type="button" onclick="closePresetModal()" class="bg-slate-200 hover:bg-slate-300 px-4 py-2 rounded-xl font-bold">Done</button>
+      <div class="p-3 border-t border-slate-800 bg-[#0d131f] flex justify-end">
+        <button type="button" onclick="closePresetModal()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-4 py-1.5 rounded font-bold">Done</button>
       </div>
     </div>
   </div>
 
-  <!-- History Modal -->
-  <div id="historyModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-lg rounded-3xl border border-slate-200 shadow-2xl overflow-hidden max-h-[85vh] flex flex-col text-xs text-slate-700">
-      <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+  <!-- Job History Records Modal -->
+  <div id="historyModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-3">
+    <div class="bg-[#111827] w-full max-w-lg rounded-2xl border border-slate-700 shadow-2xl overflow-hidden max-h-[85vh] flex flex-col text-xs font-mono-tech text-slate-300">
+      <div class="p-4 border-b border-slate-800 flex justify-between items-center bg-[#0d131f]">
         <div>
-          <h3 class="font-extrabold text-sm text-slate-900">Billing Records</h3>
-          <p class="text-[10px] text-slate-400">Past customer orders</p>
+          <h3 class="font-industrial font-bold text-sm text-slate-100 uppercase tracking-wider">FABRICATION ORDER LOG</h3>
+          <p class="text-[10px] text-slate-500">Historical client invoices & work estimates</p>
         </div>
         <div class="flex items-center gap-2">
-          <button type="button" onclick="exportDataExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1.5 rounded-xl text-xs font-bold transition">
-            📥 CSV
+          <button type="button" onclick="exportDataExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1.5 rounded text-xs font-bold transition">
+            📥 EXPORT CSV
           </button>
           <button type="button" onclick="closeHistory()" class="text-slate-400 text-lg font-bold p-1">×</button>
         </div>
       </div>
       <div id="historyContent" class="p-4 overflow-y-auto space-y-2.5 flex-grow"></div>
-      <div class="p-3 border-t border-slate-100 bg-slate-50 flex justify-between">
-        <button type="button" onclick="wipeHistory()" class="text-rose-600 font-bold text-xs p-1">Clear History</button>
-        <button type="button" onclick="closeHistory()" class="bg-slate-200 hover:bg-slate-300 px-4 py-1.5 rounded-xl font-bold text-xs">Close</button>
+      <div class="p-3 border-t border-slate-800 bg-[#0d131f] flex justify-between">
+        <button type="button" onclick="wipeHistory()" class="text-rose-500 hover:text-rose-400 font-bold text-xs p-1">Purge Log</button>
+        <button type="button" onclick="closeHistory()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-4 py-1.5 rounded font-bold text-xs">Exit</button>
       </div>
     </div>
   </div>
@@ -274,15 +355,17 @@
     const STORE_OWNER = "Ajit Behera";
     const STORE_ADDRESS = "Hyderabad region Contract Work";
     const STORE_PHONE = "+91 8019132514";
-    const STORE_MAPS_SEARCH = "https://www.google.com/maps/search/?api=1&query=Abhijit+Fabrication+Work+Hyderabad";
-    const DEFAULT_CUST = "Dear Customer";
+    const STORE_MAPS_SEARCH = "https://www.google.com/maps/search/?api=1&query=Hyderabad";
+    const DEFAULT_CUST = "General Client";
     const DEFAULT_UPI = "8019132514@upi";
+    
+    // Fabrication workshop default presets with standard engineering units
     const DEFAULT_PRESETS = [
-      { name: "Safety Grill Work (sq ft)", price: 220 },
-      { name: "Main Iron Gate Work", price: 4500 },
-      { name: "Railing / Balcony Work", price: 1800 },
-      { name: "Tin Shed Fabrication", price: 3200 },
-      { name: "General Welding / Repair", price: 500 }
+      { name: "MS Safety Grill", unit: "sq ft", price: 220 },
+      { name: "Main Iron Gate", unit: "kg", price: 110 },
+      { name: "SS Balcony Railing", unit: "rft", price: 650 },
+      { name: "Tin / Polycarbonate Shed", unit: "sq ft", price: 140 },
+      { name: "On-Site Welding Repair", unit: "job", price: 600 }
     ];
 
     window.onload = function() {
@@ -294,18 +377,9 @@
     };
 
     function initSettings() {
-      // Initialize or load settings
-      let biz = localStorage.getItem('ams_biz');
-      if (!biz || biz.includes("AMS")) {
-        biz = DEFAULT_STORE;
-        localStorage.setItem('ams_biz', biz);
-      }
-      const cust = localStorage.getItem('ams_default_cust') || DEFAULT_CUST;
-      let upi = localStorage.getItem('ams_upi');
-      if (!upi || upi.includes("91217")) {
-        upi = DEFAULT_UPI;
-        localStorage.setItem('ams_upi', upi);
-      }
+      let biz = localStorage.getItem('afw_biz') || DEFAULT_STORE;
+      const cust = localStorage.getItem('afw_default_cust') || DEFAULT_CUST;
+      let upi = localStorage.getItem('afw_upi') || DEFAULT_UPI;
 
       document.getElementById('topStoreName').innerText = biz;
       document.getElementById('custName').value = cust;
@@ -327,15 +401,15 @@
       const cust = document.getElementById('setCustName').value.trim() || DEFAULT_CUST;
       const upi = document.getElementById('setUpiId').value.trim() || DEFAULT_UPI;
 
-      localStorage.setItem('ams_biz', biz);
-      localStorage.setItem('ams_default_cust', cust);
-      localStorage.setItem('ams_upi', upi);
+      localStorage.setItem('afw_biz', biz);
+      localStorage.setItem('afw_default_cust', cust);
+      localStorage.setItem('afw_upi', upi);
 
       document.getElementById('topStoreName').innerText = biz;
       document.getElementById('custName').value = cust;
 
       closeSettings();
-      alert('Settings updated successfully!');
+      alert('Workshop parameters saved.');
     }
 
     function initDate() {
@@ -347,7 +421,7 @@
     }
 
     function initInvoice() {
-      let num = localStorage.getItem('ams_num') || '1001';
+      let num = localStorage.getItem('afw_inv_counter') || '101';
       document.getElementById('invNum').value = 'AFW-' + num;
     }
 
@@ -357,11 +431,11 @@
       if (match) {
         const next = parseInt(match[0], 10) + 1;
         const prefix = cur.substring(0, match.index);
-        localStorage.setItem('ams_num', next);
+        localStorage.setItem('afw_inv_counter', next);
         document.getElementById('invNum').value = prefix + next;
       } else {
-        let n = parseInt(localStorage.getItem('ams_num') || '1001', 10) + 1;
-        localStorage.setItem('ams_num', n);
+        let n = parseInt(localStorage.getItem('afw_inv_counter') || '101', 10) + 1;
+        localStorage.setItem('afw_inv_counter', n);
         document.getElementById('invNum').value = 'AFW-' + n;
       }
     }
@@ -372,18 +446,18 @@
       const btnOnline = document.getElementById('btnOnline');
 
       if (mode === 'Cash') {
-        btnCash.className = 'py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 bg-amber-500 text-white shadow-xs transition';
-        btnOnline.className = 'py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 text-slate-600 hover:text-slate-900 transition';
+        btnCash.className = 'py-2 rounded font-mono-tech text-xs font-bold uppercase transition flex items-center justify-center gap-1.5 bg-orange-500 text-black shadow-md';
+        btnOnline.className = 'py-2 rounded font-mono-tech text-xs font-bold uppercase text-slate-400 hover:text-slate-200 transition flex items-center justify-center gap-1.5';
       } else {
-        btnOnline.className = 'py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 bg-amber-500 text-white shadow-xs transition';
-        btnCash.className = 'py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 text-slate-600 hover:text-slate-900 transition';
+        btnOnline.className = 'py-2 rounded font-mono-tech text-xs font-bold uppercase transition flex items-center justify-center gap-1.5 bg-orange-500 text-black shadow-md';
+        btnCash.className = 'py-2 rounded font-mono-tech text-xs font-bold uppercase text-slate-400 hover:text-slate-200 transition flex items-center justify-center gap-1.5';
       }
     }
 
     function getPresets() {
-      const saved = localStorage.getItem('ams_presets');
-      if (!saved || saved.includes("Abaya")) {
-        localStorage.setItem('ams_presets', JSON.stringify(DEFAULT_PRESETS));
+      const saved = localStorage.getItem('afw_presets');
+      if (!saved) {
+        localStorage.setItem('afw_presets', JSON.stringify(DEFAULT_PRESETS));
         return DEFAULT_PRESETS;
       }
       return JSON.parse(saved);
@@ -393,26 +467,29 @@
       const bar = document.getElementById('quickPresetsBar');
       const presets = getPresets();
       bar.innerHTML = presets.map((p) => `
-        <button type="button" onclick="addPresetRow('${p.name}', ${p.price})" class="shrink-0 bg-slate-100 hover:bg-amber-100 active:scale-95 text-slate-700 font-semibold px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs transition">
-          ${p.name} <span class="font-bold text-amber-700">₹${p.price}</span>
+        <button type="button" onclick="addPresetRow('${p.name}', 1, '${p.unit || 'pcs'}', ${p.price})" class="shrink-0 bg-[#161e2e] hover:bg-orange-500/20 active:scale-95 text-slate-300 font-mono-tech font-semibold px-2.5 py-1.5 rounded border border-slate-700 hover:border-orange-500/50 shadow-xs transition text-left flex flex-col">
+          <span class="text-slate-200 text-[11px]">${p.name}</span>
+          <span class="text-orange-400 font-bold text-[10px]">₹${p.price}/${p.unit || 'unit'}</span>
         </button>
       `).join('');
     }
 
-    function addPresetRow(name, price) {
+    function addPresetRow(name, qty, unit, price) {
       const names = document.querySelectorAll('.row-name');
       const qtys = document.querySelectorAll('.row-qty');
+      const units = document.querySelectorAll('.row-unit');
       const prices = document.querySelectorAll('.row-price');
 
       if (names.length === 1 && names[0].value.trim() === '' && (prices[0].value === '' || prices[0].value === '0')) {
         names[0].value = name;
-        qtys[0].value = '1';
+        qtys[0].value = qty;
+        units[0].value = unit;
         prices[0].value = price;
         calcTotal();
         return;
       }
 
-      addRow(name, 1, price);
+      addRow(name, qty, unit, price);
     }
 
     function openPresetModal() {
@@ -429,24 +506,26 @@
       const list = getPresets();
       const box = document.getElementById('presetItemsList');
       box.innerHTML = list.map((p, idx) => `
-        <div class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-2xl border border-slate-200">
-          <input type="text" value="${p.name}" onchange="updatePreset(${idx}, 'name', this.value)" class="w-1/2 bg-white border border-slate-200 rounded-xl px-2 py-1.5 text-xs text-slate-800 font-semibold outline-none" />
-          <div class="flex items-center w-1/3 bg-white border border-slate-200 rounded-xl px-2">
-            <span class="text-amber-600 font-bold">₹</span>
-            <input type="number" value="${p.price}" onchange="updatePreset(${idx}, 'price', this.value)" class="w-full bg-transparent px-1 py-1.5 text-xs font-bold text-slate-800 outline-none" />
+        <div class="flex items-center gap-2 bg-[#0b0f17] p-2 rounded border border-slate-800">
+          <input type="text" value="${p.name}" onchange="updatePreset(${idx}, 'name', this.value)" class="w-5/12 bg-[#1c2436] border border-slate-700 rounded px-2 py-1 text-xs text-slate-100 font-semibold outline-none" />
+          <input type="text" value="${p.unit || 'pcs'}" onchange="updatePreset(${idx}, 'unit', this.value)" class="w-2/12 bg-[#1c2436] border border-slate-700 rounded px-1.5 py-1 text-xs text-center text-slate-300 outline-none" />
+          <div class="flex items-center w-4/12 bg-[#1c2436] border border-slate-700 rounded px-1.5">
+            <span class="text-orange-400 font-bold text-xs">₹</span>
+            <input type="number" value="${p.price}" onchange="updatePreset(${idx}, 'price', this.value)" class="w-full bg-transparent px-1 py-1 text-xs font-bold text-slate-100 outline-none" />
           </div>
-          <button type="button" onclick="deletePreset(${idx})" class="text-rose-600 font-black px-2 py-1 hover:bg-rose-50 rounded-lg">×</button>
+          <button type="button" onclick="deletePreset(${idx})" class="text-rose-500 font-black px-1.5 py-0.5 hover:bg-rose-500/10 rounded">×</button>
         </div>
       `).join('');
     }
 
     function addNewPreset() {
       const name = document.getElementById('newPresetName').value.trim();
+      const unit = document.getElementById('newPresetUnit').value.trim() || 'pcs';
       const price = parseFloat(document.getElementById('newPresetPrice').value) || 0;
-      if (!name) return alert('Enter work or material name');
+      if (!name) return alert('Enter fabrication work name');
       const presets = getPresets();
-      presets.push({ name, price });
-      localStorage.setItem('ams_presets', JSON.stringify(presets));
+      presets.push({ name, unit, price });
+      localStorage.setItem('afw_presets', JSON.stringify(presets));
       document.getElementById('newPresetName').value = '';
       document.getElementById('newPresetPrice').value = '';
       renderPresetManager();
@@ -456,29 +535,39 @@
       const presets = getPresets();
       if (field === 'price') {
         presets[idx].price = parseFloat(value) || 0;
+      } else if (field === 'unit') {
+        presets[idx].unit = value.trim() || 'pcs';
       } else {
-        presets[idx].name = value.trim() || 'Item';
+        presets[idx].name = value.trim() || 'Work Item';
       }
-      localStorage.setItem('ams_presets', JSON.stringify(presets));
+      localStorage.setItem('afw_presets', JSON.stringify(presets));
     }
 
     function deletePreset(idx) {
       const presets = getPresets();
       presets.splice(idx, 1);
-      localStorage.setItem('ams_presets', JSON.stringify(presets));
+      localStorage.setItem('afw_presets', JSON.stringify(presets));
       renderPresetManager();
     }
 
-    function addRow(name = '', qty = 1, price = '') {
+    function addRow(name = '', qty = 1, unit = 'sq ft', price = '') {
       const id = 'row_' + Date.now();
       const div = document.createElement('div');
-      div.className = 'grid grid-cols-12 gap-2 items-center bg-slate-50 p-2 rounded-xl border border-slate-200';
+      div.className = 'grid grid-cols-12 gap-1.5 items-center bg-[#161e2e] p-2 rounded-lg border border-slate-700/60';
       div.id = id;
       div.innerHTML = `
-        <input type="text" placeholder="Work / Material Description" value="${name}" class="row-name col-span-6 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 font-medium outline-none focus:border-amber-500" />
-        <input type="number" placeholder="Qty" value="${qty}" min="1" oninput="calcTotal()" class="row-qty col-span-2 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-center text-slate-800 font-bold outline-none focus:border-amber-500" />
-        <input type="number" placeholder="Price" value="${price}" min="0" oninput="calcTotal()" class="row-price col-span-3 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-right text-amber-800 font-bold outline-none focus:border-amber-500" />
-        <button type="button" onclick="removeRow('${id}')" class="col-span-1 text-slate-400 hover:text-rose-600 font-black text-center text-sm">×</button>
+        <input type="text" placeholder="e.g. MS Grill / Iron Gate" value="${name}" class="row-name col-span-5 bg-[#0e1626] border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-100 font-medium outline-none focus:border-orange-500" />
+        <input type="number" placeholder="Qty" value="${qty}" min="0.1" step="any" oninput="calcTotal()" class="row-qty col-span-2 bg-[#0e1626] border border-slate-700 rounded px-1.5 py-1.5 text-xs text-center font-mono-tech text-slate-100 font-bold outline-none focus:border-orange-500" />
+        <select class="row-unit col-span-2 bg-[#0e1626] border border-slate-700 rounded px-1 py-1.5 text-[11px] text-center font-mono-tech text-orange-400 outline-none focus:border-orange-500">
+          <option value="sq ft" ${unit === 'sq ft' ? 'selected' : ''}>sq ft</option>
+          <option value="kg" ${unit === 'kg' ? 'selected' : ''}>kg</option>
+          <option value="rft" ${unit === 'rft' ? 'selected' : ''}>rft</option>
+          <option value="mtr" ${unit === 'mtr' ? 'selected' : ''}>mtr</option>
+          <option value="pcs" ${unit === 'pcs' ? 'selected' : ''}>pcs</option>
+          <option value="job" ${unit === 'job' ? 'selected' : ''}>job</option>
+        </select>
+        <input type="number" placeholder="₹ Rate" value="${price}" min="0" oninput="calcTotal()" class="row-price col-span-2 bg-[#0e1626] border border-slate-700 rounded px-2 py-1.5 text-xs text-right font-mono-tech text-orange-400 font-bold outline-none focus:border-orange-500" />
+        <button type="button" onclick="removeRow('${id}')" class="col-span-1 text-slate-500 hover:text-rose-400 font-black text-center text-sm">×</button>
       `;
       document.getElementById('itemsBox').appendChild(div);
       calcTotal();
@@ -495,14 +584,16 @@
     function getItems() {
       const names = document.querySelectorAll('.row-name');
       const qtys = document.querySelectorAll('.row-qty');
+      const units = document.querySelectorAll('.row-unit');
       const prices = document.querySelectorAll('.row-price');
       const list = [];
 
       for (let i = 0; i < names.length; i++) {
-        const n = names[i].value.trim() || `Item ${i + 1}`;
+        const n = names[i].value.trim() || `Fabrication Task ${i + 1}`;
         const q = parseFloat(qtys[i].value) || 0;
+        const u = units[i].value || 'pcs';
         const p = parseFloat(prices[i].value) || 0;
-        list.push({ name: n, qty: q, price: p, total: (q * p).toFixed(2) });
+        list.push({ name: n, qty: q, unit: u, price: p, total: (q * p).toFixed(2) });
       }
       return list;
     }
@@ -517,7 +608,7 @@
 
     function formatItemsForWhatsApp(items) {
       if (!items || items.length === 0) return '';
-      return items.map(it => `• ${it.name} (x${it.qty}) - ₹${parseFloat(it.total).toFixed(2)}`).join('\n');
+      return items.map(it => `• *${it.name}*: ${it.qty} ${it.unit} @ ₹${it.price} = *₹${parseFloat(it.total).toFixed(2)}*`).join('\n');
     }
 
     function saveRecord() {
@@ -530,9 +621,9 @@
       const payment = document.getElementById('paymentMode').value;
       const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-      const history = JSON.parse(localStorage.getItem('ams_history') || '[]');
+      const history = JSON.parse(localStorage.getItem('afw_history') || '[]');
       history.unshift({ invNum, custName, phone, date, payment, total, items, time });
-      localStorage.setItem('ams_history', JSON.stringify(history));
+      localStorage.setItem('afw_history', JSON.stringify(history));
 
       advanceInvoice();
     }
@@ -541,24 +632,24 @@
       document.getElementById('itemsBox').innerHTML = '';
       addRow();
       document.getElementById('custPhone').value = '';
-      document.getElementById('custName').value = localStorage.getItem('ams_default_cust') || DEFAULT_CUST;
+      document.getElementById('custName').value = localStorage.getItem('afw_default_cust') || DEFAULT_CUST;
       calcTotal();
     }
 
     function saveOnly() {
       const total = parseFloat(calcTotal());
       if (total <= 0) {
-        alert('Please enter a work amount or price before saving.');
+        alert('Please specify rates or job totals before recording.');
         return;
       }
       saveRecord();
-      alert('Bill saved successfully!');
+      alert('Job estimate & bill recorded in registry.');
       resetInputs();
     }
 
     function getUpiQrUrl(amount) {
-      const upiId = localStorage.getItem('ams_upi') || DEFAULT_UPI;
-      const biz = localStorage.getItem('ams_biz') || DEFAULT_STORE;
+      const upiId = localStorage.getItem('afw_upi') || DEFAULT_UPI;
+      const biz = localStorage.getItem('afw_biz') || DEFAULT_STORE;
       const upiString = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(biz)}&am=${encodeURIComponent(amount)}&cu=INR`;
       return `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiString)}`;
     }
@@ -567,10 +658,10 @@
       const qrUrl = getUpiQrUrl(tot);
       const rowsHtml = (items || []).map(it => `
         <tr>
-          <td style="padding: 5px 0; border-bottom: 1px dashed #e2e8f0;">${it.name}</td>
-          <td style="padding: 5px 0; border-bottom: 1px dashed #e2e8f0; text-align: center;">${it.qty}</td>
-          <td style="padding: 5px 0; border-bottom: 1px dashed #e2e8f0; text-align: right;">₹${it.price}</td>
-          <td style="padding: 5px 0; border-bottom: 1px dashed #e2e8f0; text-align: right; font-weight: bold;">₹${it.total}</td>
+          <td style="padding: 6px 0; border-bottom: 1px dashed #475569;">${it.name}</td>
+          <td style="padding: 6px 0; border-bottom: 1px dashed #475569; text-align: center;">${it.qty} ${it.unit}</td>
+          <td style="padding: 6px 0; border-bottom: 1px dashed #475569; text-align: right;">₹${it.price}</td>
+          <td style="padding: 6px 0; border-bottom: 1px dashed #475569; text-align: right; font-weight: bold;">₹${it.total}</td>
         </tr>
       `).join('');
 
@@ -578,61 +669,59 @@
         <!DOCTYPE html>
         <html>
         <head>
-          <title>${inv}</title>
+          <title>${inv} - Estimation</title>
           <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 15px; margin: 0 auto; max-width: 380px; color: #1e293b; font-size: 12px; }
-            .header { text-align: center; border-bottom: 2px dashed #94a3b8; padding-bottom: 12px; margin-bottom: 12px; }
-            .logo-badge { width: 50px; height: 50px; border-radius: 50%; background: #fffbeb; color: #b45309; font-size: 14px; font-weight: 900; line-height: 50px; margin: 0 auto 6px auto; border: 1px solid #f59e0b; text-align: center; }
-            .biz { font-size: 15px; font-weight: 800; text-transform: uppercase; color: #0f172a; margin-bottom: 2px; }
-            .owner { font-size: 11px; font-weight: 700; color: #b45309; margin-bottom: 3px; }
-            .sub { font-size: 10px; color: #64748b; line-height: 1.4; }
-            .meta { margin-bottom: 12px; font-size: 11px; line-height: 1.5; }
-            table { width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 11px; }
-            th { text-align: left; padding: 6px 0; border-bottom: 1px solid #0f172a; text-transform: uppercase; font-size: 10px; color: #475569; }
-            .tot-box { border-top: 2px dashed #94a3b8; padding-top: 10px; font-size: 15px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
-            .qr-sec { text-align: center; margin-top: 18px; padding-top: 12px; border-top: 1px dashed #cbd5e1; }
-            .qr-sec img { width: 90px; height: 90px; margin: 0 auto; display: block; }
-            .footer { text-align: center; margin-top: 14px; font-size: 10px; color: #64748b; line-height: 1.4; }
+            body { font-family: 'Courier New', Courier, monospace; padding: 12px; margin: 0 auto; max-width: 380px; color: #000; font-size: 11px; }
+            .header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 10px; }
+            .biz { font-size: 16px; font-weight: 900; text-transform: uppercase; margin-bottom: 2px; }
+            .owner { font-size: 12px; font-weight: bold; margin-bottom: 3px; }
+            .sub { font-size: 10px; line-height: 1.3; }
+            .meta { margin-bottom: 10px; font-size: 11px; border-bottom: 1px dashed #000; padding-bottom: 8px; line-height: 1.4; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 11px; }
+            th { text-align: left; padding: 4px 0; border-bottom: 1px solid #000; font-size: 10px; }
+            .tot-box { border-top: 2px solid #000; padding-top: 8px; font-size: 15px; font-weight: 900; display: flex; justify-content: space-between; align-items: center; }
+            .qr-sec { text-align: center; margin-top: 14px; padding-top: 10px; border-top: 1px dashed #000; }
+            .qr-sec img { width: 85px; height: 85px; margin: 0 auto; display: block; }
+            .footer { text-align: center; margin-top: 10px; font-size: 9px; line-height: 1.4; }
           </style>
         </head>
         <body>
           <div class="header">
-            <div class="logo-badge">AFW</div>
             <div class="biz">${biz}</div>
             <div class="owner">Proprietor: ${STORE_OWNER}</div>
             <div class="sub">${STORE_ADDRESS}</div>
-            <div class="sub">Phone: ${STORE_PHONE}</div>
+            <div class="sub">Direct: ${STORE_PHONE}</div>
           </div>
           <div class="meta">
-            <div><strong>Invoice:</strong> ${inv}</div>
-            <div><strong>Date:</strong> ${dt}</div>
-            <div><strong>Client:</strong> ${cust}</div>
-            <div><strong>Payment:</strong> ${pay}</div>
+            <div><strong>ESTIMATE/INV:</strong> ${inv}</div>
+            <div><strong>DATE:</strong> ${dt}</div>
+            <div><strong>CLIENT/SITE:</strong> ${cust}</div>
+            <div><strong>PAY MODE:</strong> ${pay}</div>
           </div>
           <table>
             <thead>
               <tr>
-                <th>Work / Item</th>
+                <th>Scope of Work</th>
                 <th style="text-align: center;">Qty</th>
-                <th style="text-align: right;">Price</th>
-                <th style="text-align: right;">Total</th>
+                <th style="text-align: right;">Rate</th>
+                <th style="text-align: right;">Amount</th>
               </tr>
             </thead>
             <tbody>${rowsHtml}</tbody>
           </table>
           <div class="tot-box">
-            <span>GRAND TOTAL</span>
+            <span>TOTAL ESTIMATE</span>
             <span>₹${tot}</span>
           </div>
 
           <div class="qr-sec">
-            <p style="font-size: 10px; font-weight: bold; margin: 0 0 6px 0;">SCAN TO PAY (UPI)</p>
-            <img src="${qrUrl}" alt="UPI QR" />
+            <p style="font-size: 9px; font-weight: bold; margin: 0 0 4px 0;">SCAN TO PAY VIA UPI</p>
+            <img src="${qrUrl}" alt="QR" />
           </div>
 
           <div class="footer">
-            <p>Thank you for your business!</p>
-            <p style="margin-top: 4px;">📍 ${STORE_ADDRESS}</p>
+            <p>Reliable Welding, Sheds, Grills, Structural Work</p>
+            <p style="margin-top: 3px;">Hyderabad region Contract Work</p>
           </div>
         </body>
         </html>
@@ -665,86 +754,89 @@
       const doc = new jsPDF({
         orientation: 'p',
         unit: 'mm',
-        format: [80, 210]
+        format: [80, 220]
       });
 
-      doc.setFillColor(254, 243, 199);
-      doc.rect(0, 0, 80, 24, 'F');
+      // Heavy industrial blueprint header band
+      doc.setFillColor(17, 24, 39);
+      doc.rect(0, 0, 80, 26, 'F');
 
-      doc.setTextColor(146, 64, 14);
-      doc.setFontSize(8.5);
+      doc.setTextColor(249, 115, 22);
+      doc.setFontSize(9);
       doc.setFont(undefined, 'bold');
-      doc.text(biz, 40, 8, { align: 'center' });
+      doc.text(biz.toUpperCase(), 40, 9, { align: 'center' });
 
-      doc.setFontSize(6);
-      doc.text(`Prop: ${STORE_OWNER}`, 40, 13, { align: 'center' });
+      doc.setTextColor(226, 232, 240);
+      doc.setFontSize(6.5);
+      doc.setFont(undefined, 'bold');
+      doc.text(`Proprietor: ${STORE_OWNER}`, 40, 14, { align: 'center' });
 
-      doc.setTextColor(100, 116, 139);
+      doc.setTextColor(148, 163, 184);
       doc.setFontSize(5.5);
       doc.setFont(undefined, 'normal');
-      doc.text(`${STORE_ADDRESS} • Ph: ${STORE_PHONE}`, 40, 18, { align: 'center' });
+      doc.text(`${STORE_ADDRESS} • Ph: ${STORE_PHONE}`, 40, 19, { align: 'center' });
 
-      doc.setTextColor(30, 41, 59);
+      doc.setTextColor(15, 23, 42);
       doc.setFontSize(7.5);
       doc.setFont(undefined, 'bold');
-      doc.text(`Invoice: ${inv}`, 6, 29);
-      doc.text(`Date: ${dt}`, 74, 29, { align: 'right' });
+      doc.text(`ESTIMATE #: ${inv}`, 6, 31);
+      doc.text(`DATE: ${dt}`, 74, 31, { align: 'right' });
       
       doc.setFont(undefined, 'normal');
-      doc.text(`Client: ${cust}`, 6, 34);
-      doc.text(`Payment: ${pay}`, 6, 39);
+      doc.text(`CLIENT: ${cust}`, 6, 36);
+      doc.text(`PAYMENT: ${pay}`, 6, 41);
 
-      const rows = (items || []).map(it => [it.name, it.qty, `Rs. ${it.price}`, `Rs. ${it.total}`]);
+      const rows = (items || []).map(it => [it.name, `${it.qty} ${it.unit}`, `Rs. ${it.price}`, `Rs. ${it.total}`]);
       doc.autoTable({
-        startY: 43,
-        margin: { left: 5, right: 5 },
-        head: [['Work / Item', 'Qty', 'Price', 'Total']],
+        startY: 45,
+        margin: { left: 4, right: 4 },
+        head: [['Fabrication Work', 'Qty/Unit', 'Rate', 'Total']],
         body: rows,
         theme: 'plain',
         headStyles: { 
-          fillColor: [241, 245, 249], 
-          textColor: [15, 23, 42],
+          fillColor: [30, 41, 59], 
+          textColor: [249, 115, 22],
           fontSize: 6.5, 
           fontStyle: 'bold',
           halign: 'left'
         },
         columnStyles: {
           0: { cellWidth: 32 },
-          1: { halign: 'center', cellWidth: 10 },
-          2: { halign: 'right', cellWidth: 13 },
-          3: { halign: 'right', cellWidth: 15 }
+          1: { halign: 'center', cellWidth: 14 },
+          2: { halign: 'right', cellWidth: 12 },
+          3: { halign: 'right', cellWidth: 14 }
         },
-        styles: { fontSize: 6.5, cellPadding: 1.8 }
+        styles: { fontSize: 6.5, cellPadding: 1.5 }
       });
 
       let finalY = doc.lastAutoTable.finalY + 3;
 
-      doc.setDrawColor(203, 213, 225);
-      doc.line(5, finalY, 75, finalY);
+      doc.setDrawColor(71, 85, 105);
+      doc.line(4, finalY, 76, finalY);
 
       finalY += 5;
       doc.setFontSize(8.5);
       doc.setFont(undefined, 'bold');
       doc.setTextColor(15, 23, 42);
-      doc.text("Grand Total:", 6, finalY);
-      doc.setTextColor(180, 83, 9);
+      doc.text("Total Valuation:", 6, finalY);
+      doc.setTextColor(194, 65, 12);
       doc.text(`Rs. ${tot}`, 74, finalY, { align: 'right' });
 
       finalY += 8;
       doc.setFontSize(6.5);
       doc.setFont(undefined, 'bold');
       doc.setTextColor(71, 85, 105);
-      doc.text("Scan & Pay with any UPI App", 40, finalY, { align: 'center' });
+      doc.text("UPI Payment Scan Available", 40, finalY, { align: 'center' });
 
       finalY += 5;
       doc.setFontSize(6);
       doc.setFont(undefined, 'normal');
-      doc.setTextColor(148, 163, 184);
-      doc.text("Thank you for choosing Abhijit Fabrication Work!", 40, finalY, { align: 'center' });
+      doc.setTextColor(100, 116, 139);
+      doc.text("Welding • Sheds • Iron Gates • Balcony Railings", 40, finalY, { align: 'center' });
 
       finalY += 4;
       doc.setTextColor(37, 99, 235);
-      doc.textWithLink("📍 Store / Contact Info", 40, finalY, { url: STORE_MAPS_SEARCH, align: 'center' });
+      doc.textWithLink("📍 Contract Location Info", 40, finalY, { url: STORE_MAPS_SEARCH, align: 'center' });
 
       return doc;
     }
@@ -752,14 +844,14 @@
     function runBill(mode) {
       const total = parseFloat(calcTotal());
       if (total <= 0) {
-        alert('Please enter a valid price/amount first.');
+        alert('Please specify rates or job totals before proceeding.');
         return;
       }
 
       const inv = document.getElementById('invNum').value.trim();
       const phone = document.getElementById('custPhone').value.trim();
       const cust = document.getElementById('custName').value.trim() || DEFAULT_CUST;
-      const biz = localStorage.getItem('ams_biz') || DEFAULT_STORE;
+      const biz = localStorage.getItem('afw_biz') || DEFAULT_STORE;
       const dt = document.getElementById('invDate').value;
       const pay = document.getElementById('paymentMode').value;
       const items = getItems();
@@ -769,7 +861,7 @@
         executeNativePrint(biz, inv, dt, cust, pay, total.toFixed(2), items);
       } else if (mode === 'pdf') {
         const doc = makePDFObject(biz, inv, dt, cust, pay, total.toFixed(2), items);
-        doc.save(`${inv}.pdf`);
+        doc.save(`${inv}_Work_Estimate.pdf`);
       } else if (mode === 'wa') {
         if (phone.length < 10) {
           alert('Please enter a valid 10-digit mobile number.');
@@ -777,16 +869,21 @@
         }
 
         const text = encodeURIComponent(
-          `Hello ${cust},\n\n` +
-          `Thank you for working with *${biz}* (Prop: ${STORE_OWNER})!\n\n` +
-          `🧾 *Invoice/Estimate:* #${inv}\n` +
+          `*${biz.toUpperCase()}*\n` +
+          `Proprietor: *${STORE_OWNER}*\n` +
+          `Contact: ${STORE_PHONE}\n` +
+          `Location: ${STORE_ADDRESS}\n` +
+          `----------------------------------\n` +
+          `🛠️ *JOB ESTIMATE / INVOICE: #${inv}*\n` +
           `📅 *Date:* ${dt}\n` +
-          `💳 *Payment Mode:* ${pay}\n\n` +
-          `🛠️ *Work Summary:*\n${itemsSummary}\n\n` +
-          `💰 *Total Amount:* ₹${total.toFixed(2)}\n\n` +
-          `📍 *Location:* ${STORE_ADDRESS}\n` +
-          `📞 *Contact:* ${STORE_PHONE}\n\n` +
-          `We appreciate your business!`
+          `👷 *Client / Site:* ${cust}\n` +
+          `💳 *Settlement Mode:* ${pay}\n` +
+          `----------------------------------\n` +
+          `*WORK SPECIFICATIONS & BREAKDOWN:*\n` +
+          `${itemsSummary}\n` +
+          `----------------------------------\n` +
+          `💰 *TOTAL PAYABLE:* ₹${total.toFixed(2)}\n\n` +
+          `Thank you for trusting Abhijit Fabrication Work for your project!`
         );
         window.open(`https://wa.me/91${phone}?text=${text}`, '_blank');
       }
@@ -796,50 +893,53 @@
     }
 
     function printPastBill(idx) {
-      const list = JSON.parse(localStorage.getItem('ams_history') || '[]');
+      const list = JSON.parse(localStorage.getItem('afw_history') || '[]');
       const b = list[idx];
       if (!b) return;
-      const biz = localStorage.getItem('ams_biz') || DEFAULT_STORE;
+      const biz = localStorage.getItem('afw_biz') || DEFAULT_STORE;
       executeNativePrint(biz, b.invNum, b.date, b.custName, b.payment, b.total, b.items);
     }
 
     function pdfPastBill(idx) {
-      const list = JSON.parse(localStorage.getItem('ams_history') || '[]');
+      const list = JSON.parse(localStorage.getItem('afw_history') || '[]');
       const b = list[idx];
       if (!b) return;
-      const biz = localStorage.getItem('ams_biz') || DEFAULT_STORE;
+      const biz = localStorage.getItem('afw_biz') || DEFAULT_STORE;
       const doc = makePDFObject(biz, b.invNum, b.date, b.custName, b.payment, b.total, b.items);
       doc.save(`${b.invNum}.pdf`);
     }
 
     function waPastBill(idx) {
-      const list = JSON.parse(localStorage.getItem('ams_history') || '[]');
+      const list = JSON.parse(localStorage.getItem('afw_history') || '[]');
       const b = list[idx];
       if (!b) return;
       if (!b.phone || b.phone.length < 10) {
-        alert('No phone number was recorded for this bill.');
+        alert('No client contact number recorded for this order.');
         return;
       }
-      const biz = localStorage.getItem('ams_biz') || DEFAULT_STORE;
+      const biz = localStorage.getItem('afw_biz') || DEFAULT_STORE;
       const itemsSummary = formatItemsForWhatsApp(b.items);
 
       const text = encodeURIComponent(
-        `Hello ${b.custName},\n\n` +
-        `Thank you for working with *${biz}* (Prop: ${STORE_OWNER})!\n\n` +
-        `🧾 *Invoice/Estimate:* #${b.invNum}\n` +
+        `*${biz.toUpperCase()}*\n` +
+        `Proprietor: *${STORE_OWNER}*\n` +
+        `Contact: ${STORE_PHONE}\n` +
+        `----------------------------------\n` +
+        `🛠️ *WORK ORDER RECORD: #${b.invNum}*\n` +
         `📅 *Date:* ${b.date}\n` +
-        `💳 *Payment Mode:* ${b.payment}\n\n` +
-        `🛠️ *Work Summary:*\n${itemsSummary}\n\n` +
-        `💰 *Total Amount:* ₹${b.total}\n\n` +
-        `📍 *Location:* ${STORE_ADDRESS}\n` +
-        `📞 *Contact:* ${STORE_PHONE}\n\n` +
-        `We appreciate your business!`
+        `👷 *Client:* ${b.custName}\n` +
+        `💳 *Mode:* ${b.payment}\n` +
+        `----------------------------------\n` +
+        `*SCOPE OF WORK:*\n` +
+        `${itemsSummary}\n` +
+        `----------------------------------\n` +
+        `💰 *TOTAL VALUATION:* ₹${b.total}`
       );
       window.open(`https://wa.me/91${b.phone}?text=${text}`, '_blank');
     }
 
     function showPreview(data) {
-      const biz = localStorage.getItem('ams_biz') || DEFAULT_STORE;
+      const biz = localStorage.getItem('afw_biz') || DEFAULT_STORE;
       const inv = data ? data.invNum : document.getElementById('invNum').value;
       const dt = data ? data.date : document.getElementById('invDate').value;
       const cust = data ? data.custName : document.getElementById('custName').value;
@@ -858,11 +958,11 @@
       tb.innerHTML = '';
       (items || []).forEach(it => {
         tb.innerHTML += `
-          <tr class="border-b border-slate-100">
-            <td class="py-1.5 font-medium text-slate-800">${it.name}</td>
-            <td class="py-1.5 text-center text-slate-500">${it.qty}</td>
-            <td class="py-1.5 text-right text-slate-500">₹${it.price}</td>
-            <td class="py-1.5 text-right font-bold text-slate-900">₹${it.total}</td>
+          <tr class="border-b border-slate-800">
+            <td class="py-1.5 font-medium text-slate-200">${it.name}</td>
+            <td class="py-1.5 text-center text-slate-400">${it.qty} ${it.unit}</td>
+            <td class="py-1.5 text-right text-slate-400">₹${it.price}</td>
+            <td class="py-1.5 text-right font-bold text-orange-400">₹${it.total}</td>
           </tr>
         `;
       });
@@ -876,32 +976,32 @@
 
     function showHistory() {
       const box = document.getElementById('historyContent');
-      const list = JSON.parse(localStorage.getItem('ams_history') || '[]');
+      const list = JSON.parse(localStorage.getItem('afw_history') || '[]');
 
       if (list.length === 0) {
-        box.innerHTML = '<p class="text-center text-slate-400 py-8">No recorded bills yet.</p>';
+        box.innerHTML = '<p class="text-center text-slate-500 py-8">No work orders recorded yet.</p>';
       } else {
         box.innerHTML = list.map((b, idx) => `
-          <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-2">
+          <div class="bg-[#0b0f17] p-3 rounded-lg border border-slate-800 space-y-2">
             <div class="flex justify-between items-start">
               <div>
-                <p class="font-extrabold text-slate-900 text-xs sm:text-sm">${b.invNum} • ${b.custName}</p>
-                <p class="text-[10px] text-slate-500">${b.date} • <span class="text-amber-700 font-semibold">${b.payment}</span> ${b.phone ? '• ' + b.phone : ''}</p>
+                <p class="font-bold text-slate-200 text-xs sm:text-sm">${b.invNum} • ${b.custName}</p>
+                <p class="text-[10px] text-slate-400">${b.date} • <span class="text-orange-400 font-semibold">${b.payment}</span> ${b.phone ? '• ' + b.phone : ''}</p>
               </div>
-              <p class="font-black text-amber-700 text-sm">₹${b.total}</p>
+              <p class="font-black font-mono-tech text-orange-400 text-sm">₹${b.total}</p>
             </div>
-            <div class="grid grid-cols-4 gap-1.5 pt-1.5 border-t border-slate-200">
-              <button type="button" onclick='showPreview(${JSON.stringify(b)})' class="bg-white hover:bg-slate-100 border border-slate-200 py-1.5 rounded-xl font-bold text-[10px] text-center text-slate-700 shadow-xs">
-                👁️ View
+            <div class="grid grid-cols-4 gap-1.5 pt-1.5 border-t border-slate-800">
+              <button type="button" onclick='showPreview(${JSON.stringify(b)})' class="bg-slate-800 hover:bg-slate-700 border border-slate-700 py-1.5 rounded font-bold text-[10px] text-center text-slate-300">
+                VIEW
               </button>
-              <button type="button" onclick='printPastBill(${idx})' class="bg-white hover:bg-slate-100 border border-slate-200 py-1.5 rounded-xl font-bold text-[10px] text-center text-slate-700 shadow-xs">
-                🖨️ Print
+              <button type="button" onclick='printPastBill(${idx})' class="bg-slate-800 hover:bg-slate-700 border border-slate-700 py-1.5 rounded font-bold text-[10px] text-center text-slate-300">
+                PRINT
               </button>
-              <button type="button" onclick='pdfPastBill(${idx})' class="bg-white hover:bg-slate-100 border border-slate-200 py-1.5 rounded-xl font-bold text-[10px] text-center text-slate-700 shadow-xs">
-                📄 PDF
+              <button type="button" onclick='pdfPastBill(${idx})' class="bg-slate-800 hover:bg-slate-700 border border-slate-700 py-1.5 rounded font-bold text-[10px] text-center text-slate-300">
+                PDF
               </button>
-              <button type="button" onclick='waPastBill(${idx})' class="bg-emerald-600 hover:bg-emerald-700 text-white py-1.5 rounded-xl font-bold text-[10px] text-center shadow-xs">
-                💬 WA
+              <button type="button" onclick='waPastBill(${idx})' class="bg-emerald-600 hover:bg-emerald-700 text-white py-1.5 rounded font-bold text-[10px] text-center">
+                WA
               </button>
             </div>
           </div>
@@ -916,13 +1016,13 @@
     }
 
     function exportDataExcel() {
-      const list = JSON.parse(localStorage.getItem('ams_history') || '[]');
+      const list = JSON.parse(localStorage.getItem('afw_history') || '[]');
       if (list.length === 0) {
-        alert('No data to export.');
+        alert('No job records available to export.');
         return;
       }
 
-      let csv = "Invoice,Date,Time,Customer,Phone,Payment,Total\n";
+      let csv = "JobOrder,Date,Time,Client,Phone,PaymentMode,TotalValuation\n";
       list.forEach(b => {
         csv += `"${b.invNum}","${b.date}","${b.time || ''}","${b.custName}","${b.phone || ''}","${b.payment}","${b.total}"\n`;
       });
@@ -931,15 +1031,15 @@
       const link = document.createElement("a");
       const url = URL.createObjectURL(blob);
       link.setAttribute("href", url);
-      link.setAttribute("download", `AFW_Billing_Report_${new Date().toISOString().slice(0,10)}.csv`);
+      link.setAttribute("download", `AFW_Fabrication_Log_${new Date().toISOString().slice(0,10)}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
 
     function wipeHistory() {
-      if (confirm('Delete all history? This cannot be undone.')) {
-        localStorage.removeItem('ams_history');
+      if (confirm('Erase all saved fabrication order logs? This action cannot be reversed.')) {
+        localStorage.removeItem('afw_history');
         showHistory();
       }
     }
